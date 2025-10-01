@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+Hello visitor :) Welcome! 
+How you Doing ?
+
+@Anubhav            
+-->
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON Prompt Engineering Playbook</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="JSON Prompt Engineering Playbook - VS Code + GitHub Copilot">
+    <meta name="description" content="A comprehensive playbook for structured JSON prompting with VS Code and GitHub Copilot. Learn to create repeatable, machine-readable prompts for complex tasks.">
+    <meta name="keywords" content="JSON, prompt engineering, VS Code, GitHub Copilot, AI, programming, development, coding, structured prompts">
+    <meta name="author" content="Anubhav Chaudhary">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://123anubhav.github.io/json-prompting-guide">
+    <meta property="og:title" content="JSON Prompt Engineering Playbook - VS Code + GitHub Copilot">
+    <meta property="og:description" content="A comprehensive playbook for structured JSON prompting with VS Code and GitHub Copilot. Learn to create repeatable, machine-readable prompts for complex tasks.">
+    <meta property="og:image" content="https://123anubhav.github.io/json-prompting-guide/jpeg.jpg">
+    <meta property="og:image:alt" content="JSON Prompt Engineering Playbook">
+    <meta property="og:site_name" content="JSON Prompt Engineering Playbook">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://123anubhav.github.io/json-prompting-guide">
+    <meta property="twitter:title" content="JSON Prompt Engineering Playbook - VS Code + GitHub Copilot">
+    <meta property="twitter:description" content="A comprehensive playbook for structured JSON prompting with VS Code and GitHub Copilot. Learn to create repeatable, machine-readable prompts for complex tasks.">
+    <meta property="twitter:image" content="https://123anubhav.github.io/json-prompting-guide/jpeg.jpg">
+    <meta property="twitter:image:alt" content="JSON Prompt Engineering Playbook">
+    
+    <!-- LinkedIn -->
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- WhatsApp, Instagram and other platforms use the Open Graph tags -->
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="jpeg.jpg">
+    <link rel="icon" type="image/png" sizes="16x16" href="jpeg.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="jpeg.jpg">
+    <link rel="manifest" href="site.webmanifest">
+    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Fira+Code:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">JSON Prompt Playbook</div>
+            <ul class="nav-links">
+                <li><a href="#section-1">What is JSON?</a></li>
+                <li><a href="#section-2">Template</a></li>
+                <li><a href="#section-3">Examples</a></li>
+                <li><a href="#section-7">Checklist</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Scroll Progress Bar -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div class="container">
+        <header class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">JSON Prompt Engineering</h1>
+                <p class="hero-subtitle">A Playbook for VS Code + GitHub Copilot</p>
+                <div class="hero-scope">Scope: VS Code + GitHub Copilot (Ask, Edit, Agent). Use this as a reusable playbook for structured, repeatable prompts.</div>
+                <div class="credit">Created by - Anubhav Chaudhary</div>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="section" id="section-1">
+                <h2>1) What is JSON prompting?</h2>
+                <div class="section-content">
+                    <p>JSON prompting expresses your request as a structured JSON object instead of free text. It’s machine-readable, repeatable, and great for PRs/wikis. Use it for complex, multi-step tasks, team-shared prompts, and Agent guardrails.</p>
+                    <p>Attach precise context via Copilot Chat symbols: <code class="highlight">#selection</code>, <code class="highlight">#file</code>, <code class="highlight">#codebase</code>, <code class="highlight">@workspace</code>.</p>
+                </div>
+            </section>
+
+            <section class="section" id="section-2">
+                <h2>2) Canonical JSON prompt (template)</h2>
+                <div class="section-content">
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "role": "senior-java-reviewer",
+  "goal": "Refactor and document selected code without changing behavior",
+  "context": {
+    "language": "java",
+    "framework": "spring-boot",
+    "versions": {
+      "java": "17",
+      "springBoot": "3.3"
+    }
+  },
+  "input": {
+    "code_ref": "#selection",
+    "file": "#file"
+  },
+  "constraints": [
+    "no API signature changes",
+    "add null-safety and logging",
+    "preserve time/space complexity"
+  ],
+  "steps": [
+    "analyze",
+    "propose_changes",
+    "apply_changes"
+  ],
+  "output_format": {
+    "type": "patch",
+    "include_rationale": true
+  },
+  "acceptance_criteria": [
+    "build passes",
+    "existing tests pass",
+    "no deprecated Spring APIs"
+  ],
+  "risk_checklist": [
+    "thread-safety",
+    "transactions",
+    "error-mapping"
+  ]
+}</code>
+                        </div>
+                    </div>
+                    <h3>How to send in VS Code:</h3>
+                    <ul class="vscode-instructions">
+                        <li><span class="bullet">•</span> <strong>Ask mode:</strong> paste JSON after your <code>/explain</code> prompt (use <code>@workspace</code> + <code>#selection</code>).</li>
+                        <li><span class="bullet">•</span> <strong>Edit mode:</strong> select code, open Edit, paste JSON as the instruction.</li>
+                        <li><span class="bullet">•</span> <strong>Agent mode:</strong> paste JSON; add scope/acceptance tests; review diffs.</li>
+                    </ul>
+                    <p><strong>Tip:</strong> JSON has no comments—use a <code class="highlight">"_note"</code> field for annotations.</p>
+                </div>
+            </section>
+
+            <section class="section" id="section-3">
+                <h2>3) Worked examples (copy/paste)</h2>
+                <div class="section-content">
+                    <p><strong>A) Generate JUnit tests for a service (Ask → /tests)</strong></p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "role": "test-writer",
+  "goal": "Create focused JUnit 5 tests with Mockito for the selected service",
+  "input": {
+    "code_ref": "#selection",
+    "file": "#file"
+  },
+  "constraints": [
+    "no database calls—mock repos",
+    "high branch coverage"
+  ],
+  "examples": [
+    {
+      "name": "happy path",
+      "given": {
+        "id": 1
+      },
+      "expect": "200+ body"
+    },
+    {
+      "name": "not found",
+      "given": {
+        "id": 999
+      },
+      "expect": "404"
+    }
+  ],
+  "output_format": {
+    "type": "test-file",
+    "framework": "junit5",
+    "mock": "mockito"
+  },
+  "acceptance_criteria": [
+    "tests compile",
+    "no flaky waits"
+  ]
+}</code>
+                        </div>
+                    </div>
+                    <p class="usage-note">Usage: <code>/tests @workspace #selection</code> (then paste JSON)</p>
+
+                    <p><strong>B) Fix a Maven build error (Ask + @terminal)</strong></p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "role": "build-doctor",
+  "goal": "Diagnose and fix the last Maven error",
+  "input": {
+    "terminal": "#terminalLastCommand"
+  },
+  "constraints": [
+    "minimal change",
+    "explain rationale"
+  ],
+  "output_format": {
+    "type": "patch",
+    "target": "pom.xml"
+  },
+  "acceptance_criteria": [
+    "`mvn -q -DskipTests test` succeeds"
+  ]
+}</code>
+                        </div>
+                    </div>
+                    <p class="usage-note">Usage: <code>@terminal /explain #terminalLastCommand</code> (then paste JSON)</p>
+
+                    <p><strong>C) API documentation from code (Ask)</strong></p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "role": "api-doc-writer",
+  "goal": "Produce endpoint docs for the selected controller",
+  "input": {
+    "code_ref": "#selection"
+  },
+  "output_format": {
+    "type": "markdown",
+    "sections": [
+      "Summary",
+      "Request",
+      "Response",
+      "Errors",
+      "Examples"
+    ]
+  },
+  "acceptance_criteria": [
+    "paths+ methods listed",
+    "request/response JSON shown",
+    "error codes explained"
+  ]
+}</code>
+                        </div>
+                    </div>
+
+                    <p><strong>D) Safe refactor with guardrails (Edit)</strong></p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "role": "refactor-bot",
+  "goal": "Extract business logic to a new Service and keep controller thin",
+  "input": {
+    "code_ref": "#selection",
+    "file": "OrderController.java"
+  },
+  "constraints": [
+    "constructor injection",
+    "no behavior changes"
+  ],
+  "output_format": {
+    "type": "patch",
+    "include_rationale": true
+  },
+  "acceptance_criteria": [
+    "build passes",
+    "existing tests pass"
+  ]
+}</code>
+                        </div>
+                    </div>
+
+                    <p><strong>E) Agent: Add CORS + regression tests (multi-file)</strong></p>
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "role": "feature-agent",
+  "goal": "Enable CORS for http://localhost:5173 across REST endpoints and add tests",
+  "scope": {
+    "allow": [
+      "src/main/java/**",
+      "src/test/java/**"
+    ],
+    "deny": [
+      "pom.xml"
+    ]
+  },
+  "constraints": [
+    "Spring Boot 3 idioms only"
+  ],
+  "output_format": {
+    "type": "multi-patch"
+  },
+  "acceptance_criteria": [
+    "unit tests assert CORS headers on /api/*",
+    "`mvn -q -DskipTests=false test` passes",
+    "README section added"
+  ]
+}</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="section-4">
+                <h2>4) Patterns & tips for robust JSON prompts</h2>
+                <div class="section-content">
+                    <ul class="tips-list">
+                        <li><span class="bullet">•</span> Keep keys stable & meaningful: <code class="highlight">goal</code>, <code class="highlight">input</code>, <code class="highlight">constraints</code>, <code class="highlight">output_format</code>, <code class="highlight">acceptance_criteria</code>, <code class="highlight">scope</code>, <code class="highlight">examples</code>, <code class="highlight">steps</code>.</li>
+                        <li><span class="bullet">•</span> Pin context with <code class="highlight">#selection</code>, <code class="highlight">#file</code>, <code class="highlight">@workspace</code> rather than pasting huge code blocks.</li>
+                        <li><span class="bullet">•</span> Use enums for outputs: <code class="highlight">output_format.type="code"|"patch"|"summary"|"markdown"| "json" | "test-file"</code>.</li>
+                        <li><span class="bullet">•</span> Add guardrails: <code class="highlight">scope.allow/deny</code>, <code class="highlight">must_not</code>, <code class="highlight">security</code> (e.g., <code class="highlight">"must_not": ["alter SQL schema"]</code>).</li>
+                        <li><span class="bullet">•</span> Few-shot inside JSON: add 1–3 examples to define the pattern.</li>
+                        <li><span class="bullet">•</span> No comments in JSON; use <code class="highlight">"_note"</code> for annotations. Avoid trailing commas.</li>
+                        <li><span class="bullet">•</span> Limit size: prefer references + acceptance tests over dumping entire files.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section" id="section-5">
+                <h2>5) Mini schema (informal)</h2>
+                <div class="section-content">
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "role": "string",
+  "goal": "string",
+  "context": {
+    "language": "string",
+    "framework": "string",
+    "versions": {
+      "java": "string"
+    }
+  },
+  "input": {
+    "code_ref": "#selection|#file|...",
+    "file": "string",
+    "terminal": "#terminalLastCommand"
+  },
+  "constraints": [
+    "string"
+  ],
+  "steps": [
+    "string"
+  ],
+  "examples": [
+    {
+      "name": "string",
+      "given": {},
+      "expect": "string"
+    }
+  ],
+  "output_format": {
+    "type": "code|patch|summary|markdown|json|test-file",
+    "include_rationale": true
+  },
+  "scope": {
+    "allow": [
+      "glob"
+    ],
+    "deny": [
+      "glob"
+    ]
+  },
+  "acceptance_criteria": [
+    "string"
+  ],
+  "risk_checklist": [
+    "string"
+  ],
+  "_note": "optional"
+}</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="section-6">
+                <h2>6) Anti-patterns to avoid</h2>
+                <div class="section-content">
+                    <ul class="anti-patterns-list">
+                        <li><span class="bullet">•</span> Mixing free-form paragraphs with JSON—stick to pure JSON objects.</li>
+                        <li><span class="bullet">•</span> Contradictory constraints (e.g., <code class="highlight">"no API changes"</code> + <code class="highlight">"add parameter"</code>).</li>
+                        <li><span class="bullet">•</span> Missing acceptance criteria (no way to verify success).</li>
+                        <li><span class="bullet">•</span> Pasting huge code blobs (use <code class="highlight">#selection</code>/<code class="highlight">#file</code> instead).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section" id="section-7">
+                <h2>7) QA checklist before sending</h2>
+                <div class="section-content">
+                    <ul class="qa-checklist">
+                        <li><span class="bullet">•</span> JSON is valid (no comments/trailing commas)</li>
+                        <li><span class="bullet">•</span> Scope and constraints are clear</li>
+                        <li><span class="bullet">•</span> Output type is defined</li>
+                        <li><span class="bullet">•</span> Acceptance criteria are testable</li>
+                        <li><span class="bullet">•</span> Proper <code class="highlight">#selection</code>/<code class="highlight">#file</code>/<code class="highlight">@workspace</code> references added</li>
+                    </ul>
+                    <h3>One-liner starters</h3>
+                    
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "goal": "Explain selected code",
+  "input": {
+    "code_ref": "#selection"
+  },
+  "output_format": {
+    "type": "summary"
+  }
+}</code>
+                        </div>
+                    </div>
+                    
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "goal": "JUnit 5 tests for selection",
+  "input": {
+    "code_ref": "#selection"
+  },
+  "output_format": {
+    "type": "test-file"
+  }
+}</code>
+                        </div>
+                    </div>
+                    
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <div class="copy-feedback">Copied!</div>
+                        <div class="code-card">
+                            <code>{
+  "goal": "Null-safe refactor",
+  "input": {
+    "code_ref": "#selection"
+  },
+  "constraints": [
+    "no behavior change"
+  ],
+  "output_format": {
+    "type": "patch",
+    "include_rationale": true
+  }
+}</code>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+  
+     
+</body>
+</html>
